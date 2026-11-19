@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="Lối vào khuôn viên">
+  <rect width="1200" height="700" fill="#f4eee1"/>
+
+  <path d="M280 590V230h100v360M820 590V230h100v360" fill="none" stroke="#17392f" stroke-width="3"/>
+  <path d="M250 230h700" stroke="#a8874f" stroke-width="4"/>
+  <rect x="380" y="290" width="440" height="300" fill="none" stroke="#a8874f" stroke-width="2"/>
+
+  <g stroke="#17392f" stroke-opacity="0.16" stroke-width="1">
+    <path d="M600 590v110M380 590 300 700M820 590 900 700"/>
+  </g>
+
+  <text x="600" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="22" letter-spacing="9" fill="#17392f">CỔNG VÀO</text>
+</svg>

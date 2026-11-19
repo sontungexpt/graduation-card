@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp mời tốt nghiệp — Trần Võ Sơn Tùng</title>
+  <meta name="description" content="Thiệp mời dự lễ tốt nghiệp của Trần Võ Sơn Tùng." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="invite.config.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="poster">
+    <div class="sheet">
+      <!-- Top ribbon -->
+      <span class="kraft-strip kraft-strip--hero" id="heroLabel">Chúc mừng tốt nghiệp</span>
+      <p class="eyebrow">Lễ tốt nghiệp · Khoá <span id="gradYear">2026</span></p>
+
+      <!-- Hero: the two overlapping collage photos -->
+      <section class="hero-collage" aria-label="Chân dung tân cử nhân">
+        <div class="photo photo--left">
+          <img id="studentPhoto" src="assets/student-placeholder.svg" alt="Chân dung Trần Võ Sơn Tùng" />
+        </div>
+        <div class="photo photo--right">
+          <img id="gradPhoto" src="assets/student-placeholder.svg" alt="Trần Võ Sơn Tùng trong ngày tốt nghiệp" />
+        </div>
+        <span class="scribble scribble--line" aria-hidden="true">✦</span>
+      </section>
+
+      <!-- Name + degree -->
+      <h1 id="studentName">Trần Võ Sơn Tùng</h1>
+      <p class="degree" id="degree">Cử nhân Công nghệ Thông tin</p>
+
+      <!-- Two-column event date & venue -->
+      <section class="event-grid" aria-label="Thông tin sự kiện">
+        <div class="event-item">
+          <span class="event-label">Thời gian</span>
+          <p class="event-value"><span id="dateDisplay">Thứ Bảy, ngày 12 tháng 12 năm 2026</span><br /><span id="timeDisplay">17:30</span></p>
+        </div>
+        <div class="event-item">
+          <span class="event-label">Địa điểm</span>
+          <p class="event-value" id="venue">Hội trường A – Đại học Quốc gia TP. Hồ Chí Minh</p>
+        </div>
+      </section>
+
+      <p class="micro" id="timeNote">Cửa mở 16h30 · Lễ 17h30</p>
+
+      <!-- Contact pill badges -->
+      <div class="hero-contact">
+        <a class="phone" id="callBtn" href="tel:+84912345678"><span id="phoneDisplay">+84 912 345 678</span></a>
+        <div class="pills pills--contact" id="contactLinks" aria-label="Liên hệ nhanh"></div>
+      </div>
+
+      <div class="countdown" id="countdown" aria-label="Đếm ngược đến lễ tốt nghiệp">
+        <div class="countdown__unit"><strong id="cdDays">--</strong><span>ngày</span></div>
+        <div class="countdown__unit"><strong id="cdHours">--</strong><span>giờ</span></div>
+        <div class="countdown__unit"><strong id="cdMins">--</strong><span>phút</span></div>
+        <div class="countdown__unit"><strong id="cdSecs">--</strong><span>giây</span></div>
+      </div>
+      <button class="text-link" id="calendarBtn" type="button">Lưu vào lịch</button>
+
+      <!-- Invitation note -->
+      <section class="note paper-card">
+        <span class="kicker">Lời mời</span>
+        <p id="inviteMessage">Mình mời bạn đến chia vui trong ngày tốt nghiệp. Có bạn ở đó là ngày ấy thêm trọn vẹn.</p>
+      </section>
+
+      <!-- Location + gate selector -->
+      <section class="block paper-card paper-card--venue">
+        <div class="block__head"><span class="index">01</span><span class="kicker">Địa điểm</span></div>
+        <h2 id="locationTitle">Chọn cổng để được chỉ đường</h2>
+        <p class="lead" id="locationHint">Đường chính phong tỏa. Chọn cổng bạn sẽ đến.</p>
+
+        <div class="tag-row" id="gatePicker" aria-label="Chọn cổng vào"></div>
+        <p class="gate-note" id="gateNote">Gần xe buýt nhất.</p>
+
+        <figure class="venue-shot">
+          <div class="venue-shot__paper">
+            <img id="entrancePhoto" src="assets/entrance-placeholder.svg" alt="Lối vào khuôn viên" />
+            <span class="map-pin" id="mapPin" aria-hidden="true"></span>
+          </div>
+          <figcaption class="kraft-strip kraft-strip--caption">
+            <span id="gate">Cổng B · phía Đông</span>
+            <span id="address">Linh Trung, Thủ Đức, TP. Hồ Chí Minh</span>
+          </figcaption>
+        </figure>
+
+        <div class="tag-row tag-row--map" id="mapLinks" aria-label="Mở bản đồ"></div>
+        <p class="micro" id="mapHint">Chạm để mở bản đồ trên điện thoại.</p>
+
+        <ol class="steps" id="steps"></ol>
+      </section>
+
+      <!-- Bus routes -->
+      <section class="block paper-card paper-card--bus">
+        <div class="block__head"><span class="index">02</span><span class="kicker">Đường đi</span></div>
+        <h2>Xe buýt đến khuôn viên</h2>
+        <p class="lead" id="busNote">Xe buýt và xe đưa đón đỗ quanh khuôn viên.</p>
+        <ul class="bus-list" id="busList"></ul>
+        <p class="micro" id="busFootnote">Giờ xe có thể thay đổi.</p>
+      </section>
+
+      <!-- Closing -->
+      <section class="closing">
+        <span class="kraft-strip kraft-strip--closing" id="closingLine">Hẹn gặp bạn tại buổi lễ.</span>
+        <p class="signoff">Trân trọng,<br /><strong id="footerName">Trần Võ Sơn Tùng</strong></p>
+      </section>
+
+      <footer class="footer">
+        <p>Khoá <span id="footerYear">2026</span> · <span id="footerVenue">Hội trường A – Đại học Quốc gia TP. Hồ Chí Minh</span></p>
+      </footer>
+    </div>
+  </main>
+
+  <div class="tour-modal" id="tourModal" hidden>
+    <div class="tour-modal__backdrop" data-close-tour></div>
+    <div class="tour-modal__panel" role="dialog" aria-modal="true" aria-label="Tour 360° khuôn viên">
+      <div class="tour-modal__bar">
+        <span class="kicker">Tham quan 360°</span>
+        <button class="tour-modal__close" id="tourClose" type="button" data-close-tour aria-label="Đóng tour 360°">Đóng ✕</button>
+      </div>
+      <div class="tour-modal__mount" id="tourMount"></div>
+      <a class="tour-modal__open" id="tourOpen" href="https://tuyensinh.uit.edu.vn/uit-tour-360/" target="_blank" rel="noopener">Mở trong tab mới ↗</a>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

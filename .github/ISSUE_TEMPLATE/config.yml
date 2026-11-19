@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Hướng dẫn tùy chỉnh
+    url: https://github.com/sontungexpt/graduation-card#chỉnh-sửa
+    about: Xem cách chỉnh nội dung trong invite.config.js

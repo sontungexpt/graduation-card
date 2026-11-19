@@ -1,0 +1,19 @@
+{
+  "name": "graduation-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thiệp mời tốt nghiệp tĩnh (HTML/CSS/JS) với nội dung cấu hình trong invite.config.js",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "check": "node --check invite.config.js && node --check script.js",
+    "deploy": "bash scripts/deploy.sh"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sontungexpt/graduation-card.git"
+  },
+  "license": "MIT"
+}
