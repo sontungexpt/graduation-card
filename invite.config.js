@@ -13,7 +13,7 @@ window.INVITE = {
   gradPhoto: "assets/grad-photo.svg",
   entrancePhoto: "assets/entrance-placeholder.svg",
 
-  dateISO: "2026-12-12T17:30:00",
+  dateISO: "2026-11-25T13:30:00+07:00",
   dateDisplay: "Thứ Tư, ngày 25 tháng 11 năm 2026",
   timeDisplay: "13:30",
   timeNote: "Trước 13:30 hoặc sau 16:30",
