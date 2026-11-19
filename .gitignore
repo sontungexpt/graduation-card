@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Deploy/build caches
+.cache/
+dist/
+build/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Environment / local
+.env
+.env.*
+!.env.example
+*.local
+
+# Coverage / temp
+coverage/
+.tmp/
+temp/

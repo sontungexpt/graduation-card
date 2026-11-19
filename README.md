@@ -1,22 +1,34 @@
 # Thiệp mời tốt nghiệp — Trần Võ Sơn Tùng
 
-Trang thiệp ngắn gọn, sáng và chỉn chu: nền kem ấm, mực xanh rừng đậm, điểm nhấn vàng champagne. Bỏ khung vòm, các vạch ngăn thừa và đoạn văn dài.
+Trang thiệp mời tốt nghiệp tĩnh (HTML/CSS/JS), phong cách collage giấy ấm. Mọi nội dung hiển thị được cấu hình tập trung trong một tệp.
 
 ## Cấu trúc
 
 - `invite.config.js` — **chỉ sửa file này** khi đổi thông tin
-- `script.js` — phần chạy, không cần đụng vào
+- `script.js` — logic hiển thị (không cần chỉnh)
 - `index.html` — khung trang
 - `styles.css` — giao diện
-- `assets/` — ảnh minh hoạ dạng đường nét, có thể thay bằng ảnh thật
+- `assets/` — ảnh/placeholder (có thể dùng ảnh thật hoặc URL)
+- `docs/` — hướng dẫn tùy chỉnh và triển khai
+- `.github/` — workflow CI/Pages và mẫu issue/PR
 
-## Xem trước
+## Bắt đầu
 
 ```bash
 python3 -m http.server 8000
+# hoặc
+npm start
 ```
 
-Rồi mở `http://localhost:8000`.
+Mở `http://localhost:8000`.
+
+## Kiểm tra
+
+```bash
+npm run check
+# hoặc
+./scripts/check.sh
+```
 
 ## Chỉnh sửa
 
