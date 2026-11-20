@@ -161,7 +161,7 @@ window.INVITE = {
   // Ghi chú chung về xe buýt/bãi đỗ.
   busNote: "Xe buýt và xe đưa đón đỗ quanh khuôn viên.",
   // Ghi chú nhỏ cuối danh sách xe buýt.
-  busFootnote: "Giờ xe có thể thay đổi.",
+  busFootnote: "Mình lâu rồi không đi xe buýt nên thông tin có thể thay đổi. Trước đây, các chuyến xe thường đi ngang Trường ĐH Khoa học Xã hội và Nhân văn, nên xuống ở đó sẽ gần hơn so với xuống Bến xe buýt ĐHQG. Bạn nhớ hỏi tài xế hoặc phụ xe xem tuyến có dừng gần Nhân văn không; nếu có thì xuống tại đó và đi bộ khoảng 100 m vào UIT nhé.",
   // Danh sách tuyến xe buýt. Mỗi tuyến gồm: number (số tuyến), route (lộ trình), detail (mẹo đi bộ/điểm dừng), time (giờ chạy).
   // Cách lấy: tra trên BusMap (busmap.vn), Google Maps (chỉ đường bằng xe buýt) hoặc website xe buýt địa phương; kiểm tra lại giờ chạy gần ngày đi.
   buses: [
