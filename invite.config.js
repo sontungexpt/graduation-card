@@ -19,6 +19,8 @@ window.INVITE = {
   // Dòng chữ trên dải giấy đầu thiệp.
   // Cách lấy: tự viết câu chúc/tiêu đề ngắn bạn muốn.
   heroLabel: "Chúc mừng bị đuổi khỏi trường",
+  // Câu đùa/chú thích nhỏ hiện ngay dưới cụm ảnh ở đầu thiệp. Để "" nếu không dùng.
+  photoJoke: "Thiếu thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
 
   // --- Ảnh ---
   // Mỗi trường ảnh nhận: URL ảnh (https://...), hoặc file trong thư mục assets/
@@ -30,7 +32,7 @@ window.INVITE = {
   // Ảnh chân dung (ảnh trái ở phần đầu).
   studentPhoto: "assets/student-portrait.jpg",
   // Ảnh tốt nghiệp (ảnh phải ở phần đầu). Nếu lỗi sẽ dùng studentPhoto.
-  gradPhoto: "https://drive.google.com/drive/u/1/folders/1Oo4uH80q4PU9yxjJH33CykFn5rf4YntH",
+  gradPhoto: "assets/grad_photo.jpeg",
   // Ảnh cổng/dự phòng khi ảnh của cổng không tải được.
   entrancePhoto: "assets/placeholder-gate.svg",
 
@@ -101,7 +103,7 @@ window.INVITE = {
   // Tiêu đề mục địa điểm.
   locationTitle: "Chọn cổng để được chỉ đường",
   // Dòng mô tả ngắn dưới tiêu đề (hướng dẫn chọn cổng/lưu ý đường).
-  locationHint: "Đường chính phong tỏa. Chọn cổng bạn sẽ đến.",
+  locationHint: "Chọn cổng bạn sẽ đến. Nhấn lại cổng đang chọn để mở Google Maps.",
   // Gợi ý nhỏ dưới nhóm nút bản đồ.
   mapHint: "Chạm để mở bản đồ trên điện thoại.",
 
@@ -146,7 +148,7 @@ window.INVITE = {
   // Dòng chữ trên dải giấy phần kết.
   closingLine: "Hẹn gặp bạn tại buổi lễ.",
   // Lời mời ngắn trong thẻ "Lời mời".
-  message: "Mình mời bạn đến chia vui trong ngày tốt nghiệp. Có bạn ở đó là ngày ấy thêm trọn vẹn. Hình như thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
+  message: "Mình mời bạn đến chia vui trong ngày tốt nghiệp. Có bạn ở đó là ngày ấy thêm trọn vẹn.",
 
   // --- Xe buýt ---
   // Ghi chú chung về xe buýt/bãi đỗ.

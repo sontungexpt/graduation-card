@@ -101,6 +101,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   Object.entries(content).forEach(([id, value]) => setText(id, value));
 
+  const photoJoke = $("photoJoke");
+  if (photoJoke) {
+    const joke = INVITE.photoJoke || "";
+    photoJoke.textContent = joke;
+    photoJoke.hidden = !joke;
+  }
+
   setImage($("studentPhoto"), INVITE.studentPhoto);
   $("studentPhoto").alt = `Chân dung ${INVITE.studentName}`;
   setImage($("gradPhoto"), INVITE.gradPhoto, INVITE.studentPhoto);
@@ -137,7 +144,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $("gatePicker").addEventListener("click", (event) => {
     const chip = event.target.closest("[data-gate]");
-    if (chip) showGate(Number(chip.dataset.gate));
+    if (!chip) return;
+    const index = Number(chip.dataset.gate);
+    if (chip.classList.contains("is-active")) {
+      const gate = INVITE.gates[index];
+      const coords = `${gate.lat},${gate.lng}`;
+      window.open(
+        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coords)}`,
+        "_blank",
+        "noopener"
+      );
+      return;
+    }
+    showGate(index);
   });
   showGate(0);
 
