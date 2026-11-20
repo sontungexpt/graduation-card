@@ -8,12 +8,20 @@ window.INVITE = {
   degree: "Cử nhân Công nghệ Thông tin",
   heroLabel: "Chúc mừng bị đuổi khỏi trường",
   // Mọi trường ảnh đều nhận URL hoặc file trong assets/.
-  // Có thể gõ "student-placeholder.svg" (tự hiểu là assets/student-placeholder.svg).
-  studentPhoto: "assets/student_img.jpg",
-  gradPhoto: "assets/grad-photo.svg",
-  entrancePhoto: "assets/entrance-placeholder.svg",
+  // Có thể gõ "placeholder-portrait.svg" (tự hiểu là assets/placeholder-portrait.svg).
+  studentPhoto: "assets/student-portrait.jpg",
+  gradPhoto: "assets/graduate-photo.svg",
+  entrancePhoto: "assets/placeholder-gate.svg",
 
-  dateISO: "2026-11-25T13:30:00+07:00",
+  // Thời gian thực cho đếm ngược và "Lưu vào lịch".
+  event: {
+    // Ngày: "DD/MM/YYYY" (vd "25/11/2026") hoặc "YYYY-MM-DD"
+    date: "25/11/2026",
+    // Giờ 24h: "HH:mm" (vd "13:30", "08:00")
+    time: "13:30",
+    // Múi giờ/lệch UTC: "±HH:MM" (mặc định "+07:00" nếu bỏ trống)
+    timezone: "+07:00",
+  },
   dateDisplay: "Thứ Tư, ngày 25 tháng 11 năm 2026",
   timeDisplay: "13:30",
   timeNote: "Trước 13:30 hoặc sau 16:30",
@@ -28,15 +36,13 @@ window.INVITE = {
       name: "Cổng trước UIT (A)",
       note: "Gần xe buýt 170 nhất.",
       photo: "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TgHAkW0VZrPxYdv2SwuYGbM4Ab0Dpjq2fDwwklqxPI9YmAAOgjmWMEHb6kxZu6msAQaYi5hpAKANZBMdtvli3-jIZ3FMelpiN9J0l3ylrY_gPiBTDrUbQ9QeqGrPgjkcys7jTMbmD_mWqk=w224-h298-n-k-no",
-      lat: 10.8704192, lng: 106.8021049,
-      pinX: 70, pinY: 47
+      lat: 10.8704192, lng: 106.8021049
     },
     {
       name: "Cổng sau UIT (B) - Đối diện Suối tiên",
       note: "Cổng này lội bộ từ xe bus hơi xa",
-      photo: "assets/B_gate.png",
-      lat: 10.8690162, lng: 106.8039559,
-      pinX: 38, pinY: 42
+      photo: "assets/gate-b.png",
+      lat: 10.8690162, lng: 106.8039559
     },
   ],
 

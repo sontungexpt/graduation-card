@@ -5,7 +5,7 @@ Cảm ơn bạn đã quan tâm đến dự án.
 ## Nguyên tắc
 
 - Mọi nội dung hiển thị (tên, thời gian, địa điểm, liên hệ, cổng, ảnh, lời mời) nên chỉnh trong `invite.config.js` khi có thể.
-- `script.js` chỉ xử lý logic hiển thị/chạy; tránh nhúng nội dung cứng vào đây.
+- `app.js` chỉ xử lý logic hiển thị/chạy; tránh nhúng nội dung cứng vào đây.
 - Giữ giao diện gọn, dễ đọc, và hỗ trợ tiếng Việt có dấu.
 - Không commit `node_modules/`, tệp cache, hoặc thông tin cá nhân nhạy cảm.
 

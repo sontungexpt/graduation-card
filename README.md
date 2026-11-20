@@ -5,12 +5,13 @@ Trang thiệp mời tốt nghiệp tĩnh (HTML/CSS/JS), phong cách collage gi�
 ## Cấu trúc
 
 - `invite.config.js` — **chỉ sửa file này** khi đổi thông tin
-- `script.js` — logic hiển thị (không cần chỉnh)
+- `app.js` — logic hiển thị (không cần chỉnh)
 - `index.html` — khung trang
-- `styles.css` — giao diện
-- `assets/` — ảnh/placeholder (có thể dùng ảnh thật hoặc URL)
+- `style.css` — giao diện
+- `assets/` — ảnh/ảnh minh họa (có thể dùng ảnh thật hoặc URL)
 - `docs/` — hướng dẫn tùy chỉnh và triển khai
-- `.github/` — workflow CI/Pages và mẫu issue/PR
+- `scripts/` — kiểm tra và xuất bản
+- `.github/` — workflow CI và mẫu issue/PR
 
 ## Bắt đầu
 
@@ -35,9 +36,9 @@ npm run check
 Mở `invite.config.js` và sửa object `window.INVITE`:
 
 - **Cá nhân:** `studentName`, `graduationYear`, `nickname`, `degree`, `studentPhoto`, `gradPhoto`
-- **Sự kiện:** `dateISO`, `dateDisplay`, `timeDisplay`, `timeNote`, `venue`, `address`
+- **Sự kiện:** `event` (`date`, `time`, `timezone`), `dateDisplay`, `timeDisplay`, `timeNote`, `venue`, `address`
 - **Liên hệ:** `phoneDisplay`, `phoneDial`, `messenger`, `zalo`
-- **Cổng vào:** mảng `gates` với `name`, `note`, `photo` (URL ảnh cổng), `lat`, `lng`, `pinX`, `pinY`. Chỉ cần dán link ảnh, không cần đưa file vào `assets/`. Nếu link lỗi, thiệp dùng ảnh dự phòng `entrancePhoto`.
+- **Cổng vào:** mảng `gates` với `name`, `note`, `photo` (URL ảnh cổng), `lat`, `lng`. Chỉ cần dán link ảnh, không cần đưa file vào `assets/`. Nếu link lỗi, thiệp dùng ảnh dự phòng `entrancePhoto`.
 - **Chỉ đường:** `locationTitle`, `locationHint`, `mapHint`, `steps`
 - **Tour 360°:** `tour360Url`, `tourLabel`, `tourMode` — dán URL tour vào đây. `tourMode: "modal"` nhúng tour ngay trên thiệp; `"tab"` mở tab mới. Tour tự phát nhạc có sẵn, không thêm nhạc riêng để tránh nhân đôi tiếng
 - **Xe buýt:** `busNote`, `busFootnote`, `buses`
@@ -50,9 +51,9 @@ Mở `invite.config.js` và sửa object `window.INVITE`:
 Mọi trường ảnh (`studentPhoto`, `gradPhoto`, `entrancePhoto`, `photo` của mỗi cổng) đều nhận một trong hai dạng:
 
 ```js
-studentPhoto: "assets/anh-cua-ban.jpg",                    // file trong assets/
-studentPhoto: "anh-cua-ban.jpg",                          // tên file cũng được
-studentPhoto: "https://example.com/anh-cua-ban.jpg",      // link ảnh
+studentPhoto: "assets/student-portrait.jpg",              // file trong assets/
+studentPhoto: "student-portrait.jpg",                     // tên file cũng được
+studentPhoto: "https://example.com/student-portrait.jpg", // link ảnh
 ```
 
 Nếu link không tải được, thiệp tự dùng ảnh dự phòng (`entrancePhoto` cho ảnh cổng, `studentPhoto` cho ảnh tốt nghiệp).
@@ -61,6 +62,6 @@ Nếu link không tải được, thiệp tự dùng ảnh dự phòng (`entranc
 
 - Thông tin sự kiện, đồng hồ đếm ngược và **số điện thoại + 4 nút liên hệ** nằm ngay trong phần đầu
 - Lời mời ngắn, ba khối rõ ràng: địa điểm/chỉ đường, xe buýt, lời kết
-- Chọn cổng → đổi ảnh cổng, ghim, địa chỉ và liên kết bản đồ
+- Chọn cổng → đổi ảnh cổng, địa chỉ và liên kết bản đồ
 - Google Maps / Apple Maps / MultiGo dùng chung một kiểu nút, thêm nút tour 360° nhúng trong lightbox (nhạc có sẵn của tour tự phát)
 - Playfair Display cho tiêu đề, Be Vietnam Pro cho nội dung tiếng Việt

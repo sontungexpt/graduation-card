@@ -1,5 +1,5 @@
-/* Thiệp mời tốt nghiệp — phần chạy.
-   KHÔNG sửa nội dung ở đây. Mọi thông tin nằm trong invite.config.js */
+/* Thiệp mời tốt nghiệp — runtime.
+   Không sửa nội dung ở đây. Mọi thông tin nằm trong invite.config.js */
 
 const INVITE = window.INVITE;
 const $ = (id) => document.getElementById(id);
@@ -84,6 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const isLink = (s) => /^https?:\/\//.test(s);
 
   // ---------- Đổ nội dung ----------
+  document.title = `Thiệp mời tốt nghiệp — ${INVITE.studentName}`;
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) metaDescription.setAttribute("content", `Thiệp mời dự lễ tốt nghiệp của ${INVITE.studentName}.`);
+
   const content = {
     studentName: INVITE.studentName, degree: INVITE.degree, heroLabel: INVITE.heroLabel,
     gradYear: INVITE.graduationYear, footerYear: INVITE.graduationYear,
@@ -101,8 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
   $("studentPhoto").alt = `Chân dung ${INVITE.studentName}`;
   setImage($("gradPhoto"), INVITE.gradPhoto, INVITE.studentPhoto);
   $("gradPhoto").alt = `${INVITE.studentName} trong ngày tốt nghiệp`;
-  setImage($("entrancePhoto"), INVITE.entrancePhoto);
-  $("entrancePhoto").alt = `Lối vào ${INVITE.venue}`;
   $("callBtn").href = `tel:${INVITE.phoneDial}`;
 
   // ---------- Chọn cổng -> đổi bản đồ ----------
@@ -118,10 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setImage($("entrancePhoto"), gate.photo, INVITE.entrancePhoto);
     $("entrancePhoto").alt = `Lối vào ${gate.name}`;
-
-    const pin = $("mapPin");
-    pin.style.left = `${gate.pinX}%`;
-    pin.style.top = `${gate.pinY}%`;
 
     const coords = encodeURIComponent(`${gate.lat},${gate.lng}`);
     renderPills("mapLinks", [
@@ -210,7 +208,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Đếm ngược ----------
   const counter = $("countdown");
   const units = { days: $("cdDays"), hours: $("cdHours"), mins: $("cdMins"), secs: $("cdSecs") };
-  const eventDate = new Date(INVITE.dateISO);
+
+  function parseEventDate(invite) {
+    if (invite.dateISO) return new Date(invite.dateISO);
+    const ev = invite.event;
+    if (!ev || !ev.date || !ev.time) return new Date(NaN);
+    let y, m, d;
+    const date = String(ev.date).trim();
+    if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(date)) [y, m, d] = date.split("-").map(Number);
+    else if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) [d, m, y] = date.split("/").map(Number);
+    else return new Date(NaN);
+    const [hh, mm = 0] = String(ev.time).trim().split(":").map(Number);
+    const tz = String(ev.timezone || ev.timeZone || "+07:00").trim();
+    const pad = (n, l = 2) => String(n).padStart(l, "0");
+    return new Date(`${y}-${pad(m)}-${pad(d)}T${pad(hh)}:${pad(mm)}:00${tz}`);
+  }
+
+  const eventDate = parseEventDate(INVITE);
   let timer;
 
   function setUnit(key, value) {
@@ -225,10 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function tickCountdown() {
     const diff = eventDate - Date.now();
-    if (diff <= 0) {
+    if (Number.isNaN(eventDate.getTime()) || diff <= 0) {
       Object.keys(units).forEach((key) => setUnit(key, 0));
-      counter.classList.add("is-live");
-      counter.setAttribute("aria-label", "Buổi lễ đã bắt đầu");
+      if (!Number.isNaN(eventDate.getTime())) {
+        counter.classList.add("is-live");
+        counter.setAttribute("aria-label", "Buổi lễ đã bắt đầu");
+      } else {
+        counter.setAttribute("aria-label", "Chưa thiết lập thời gian sự kiện");
+      }
       clearInterval(timer);
       return;
     }
@@ -241,14 +259,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   tickCountdown();
-  if (!counter.classList.contains("is-live")) timer = setInterval(tickCountdown, 1000);
+  if (!Number.isNaN(eventDate.getTime()) && !counter.classList.contains("is-live")) timer = setInterval(tickCountdown, 1000);
 
   // ---------- Lưu vào lịch ----------
   const icsDate = (date) => date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
   const icsText = (value) => String(value).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
 
   $("calendarBtn").addEventListener("click", () => {
-    const start = new Date(INVITE.dateISO);
+    if (Number.isNaN(eventDate.getTime())) {
+      toast("Chưa thiết lập thời gian sự kiện.");
+      return;
+    }
+    const start = new Date(eventDate);
     const end = new Date(start.getTime() + 7200000);
     const ics = [
       "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Thiep Moi Tot Nghiep//VI", "CALSCALE:GREGORIAN",

@@ -7,8 +7,11 @@ Tất cả nội dung hiển thị được đặt trong `invite.config.js`. Sau
 - Ảnh: `studentPhoto`, `gradPhoto`, `entrancePhoto` — nhận đường dẫn trong `assets/` (ví dụ `"assets/anh.jpg"` hoặc chỉ tên file) hoặc URL.
 
 ## Sự kiện
-- `dateISO`: thời điểm sự kiện theo ISO 8601 (dùng cho đếm ngược/lịch), ví dụ `2026-11-25T13:30:00+07:00`.
-- `dateDisplay`, `timeDisplay`, `timeNote`, `venue`, `address`
+- `event`: thời điểm dùng cho đếm ngược và lịch
+  - `date`: ngày, dạng `DD/MM/YYYY` (ví dụ `"25/11/2026"`) hoặc `YYYY-MM-DD`
+  - `time`: giờ theo 24h, dạng `HH:mm` (ví dụ `"13:30"`)
+  - `timezone`: múi giờ/độ lệch UTC (mặc định `"+07:00"`)
+- `dateDisplay`, `timeDisplay`, `timeNote`, `venue`, `address`: nội dung hiển thị trên thiệp (tự do viết bằng tiếng Việt)
 
 ## Liên hệ
 - `phoneDisplay`, `phoneDial`
@@ -19,7 +22,6 @@ Tất cả nội dung hiển thị được đặt trong `invite.config.js`. Sau
 Mỗi phần tử trong `gates` có:
 - `name`, `note`, `photo` (asset hoặc URL)
 - `lat`, `lng`: tọa độ thực để mở Google/Apple Maps
-- `pinX`, `pinY`: vị trí ghim trang trí trên ảnh cổng (phần trăm, 0–100)
 
 ## Tour 360°
 - `tour360Url`, `tourLabel`, `tourMode` (`"modal"` nhúng trên trang, `"tab"` mở tab mới)
@@ -31,7 +33,6 @@ Mỗi phần tử trong `gates` có:
 
 ## Kiểm tra nhanh
 ```bash
-node --check invite.config.js
-node --check script.js
+bash scripts/check.sh
 python3 -m http.server 8000
 ```
