@@ -13,18 +13,18 @@ window.INVITE = {
   gradPhoto: "assets/graduate-photo.svg",
   entrancePhoto: "assets/placeholder-gate.svg",
 
-  // Thời gian thực cho đếm ngược và "Lưu vào lịch".
+  // Thời gian thực cho đếm ngược và "Lưu vào lịch" (mốc bắt đầu lễ).
   event: {
     // Ngày: "DD/MM/YYYY" (vd "25/11/2026") hoặc "YYYY-MM-DD"
     date: "25/11/2026",
-    // Giờ 24h: "HH:mm" (vd "13:30", "08:00")
+    // Giờ 24h (mốc bắt đầu lễ): "HH:mm" (vd "13:30", "08:00")
     time: "13:30",
     // Múi giờ/lệch UTC: "±HH:MM" (mặc định "+07:00" nếu bỏ trống)
     timezone: "+07:00",
   },
   dateDisplay: "Thứ Tư, ngày 25 tháng 11 năm 2026",
-  timeDisplay: "13:30",
-  timeNote: "Trước 13:30 hoặc sau 16:30",
+  timeDisplay: "Trước 13:30 hoặc sau 16:30",
+  timeNote: "Mình bận lễ từ 13:30 đến 16:30, bạn ghé ngoài khung giờ này để tụi mình có thời gian gặp nhau nhé.",
 
   venue: "Hội trường A – Đại học Quốc gia TP. Hồ Chí Minh",
   address: "Linh Trung, Thủ Đức, TP. Hồ Chí Minh",
