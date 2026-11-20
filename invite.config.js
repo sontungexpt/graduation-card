@@ -20,7 +20,7 @@ window.INVITE = {
   // Cách lấy: tự viết câu chúc/tiêu đề ngắn bạn muốn.
   heroLabel: "Chúc mừng bị đuổi khỏi trường",
   // Câu đùa/chú thích nhỏ hiện ngay dưới cụm ảnh ở đầu thiệp. Để "" nếu không dùng.
-  photoJoke: "Thiếu thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
+  photoJoke: "Thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
 
   // --- Ảnh ---
   // Mỗi trường ảnh nhận: URL ảnh (https://...), file trong thư mục assets/, hoặc link chia sẻ Google Drive.
@@ -59,18 +59,18 @@ window.INVITE = {
   dateDisplay: "Thứ Tư, ngày 25 tháng 11 năm 2026",
   // Dòng giờ/khung giờ hiển thị (nổi bật, cùng hàng với ngày).
   // Cách lấy: ghi khung giờ bạn muốn khách ghé (vd "Trước 13:30 hoặc sau 16:30").
-  timeDisplay: "11h - 12h hoặc sau 16:30",
+  timeDisplay: "11h - 12h hoặc 4h chiều",
   // Ghi chú nhỏ bên dưới phần thời gian.
   // Cách lấy: giải thích thêm để khách hiểu nên đến lúc nào.
-  timeNote: "Mình bận lễ từ 13:30 đến 16:30, bạn ghé ngoài khung giờ này để tụi mình có thời gian gặp nhau nhé.",
+  timeNote: "Mình bận tập trung và dự lễ từ 13:00 đến khoảng 15:30, bạn ghé ngoài khung giờ này để tụi mình có thời gian gặp nhau nhé.",
 
   // --- Địa điểm chung ---
   // Tên địa điểm/tòa nhà (hiển thị ở đầu thiệp, chân trang và dùng trong lịch/bản đồ).
   // Cách lấy: tên hội trường/tòa theo thông báo của trường.
-  venue: "Hội trường A – Đại học Quốc gia TP. Hồ Chí Minh",
+  venue: "Hội trường A (Tầng 3 Nhà A) - Trường Đại học Công nghệ Thông tin",
   // Địa chỉ khu vực (hiển thị dưới ảnh cổng, dùng trong lịch và khi sao chép cho MultiGo).
   // Cách lấy: địa chỉ/quận/phường hoặc khu vực ghi trên Google Maps.
-  address: "Linh Trung, Thủ Đức, TP. Hồ Chí Minh",
+  address: "Hàn Thuyên, khu phố 6 P, Linh Xuân, Hồ Chí Minh",
 
   // --- Cổng vào (chọn cổng -> đổi ảnh, ghi chú, liên kết bản đồ & hướng dẫn) ---
   // Mỗi cổng là một mục trong danh sách. Có thể thêm/bớt cổng (giữ cấu trúc như mẫu).
@@ -93,7 +93,7 @@ window.INVITE = {
       // Tên cổng hiển thị và dùng thay {gate} trong hướng dẫn.
       name: "Cổng sau UIT (B) - Đối diện Suối tiên",
       // Ghi chú ngắn về cổng.
-      note: "Cổng này lội bộ từ xe bus hơi xa",
+      note: "Cổng này đi bộ từ xe bus hơi xa",
       // Ảnh cổng (URL hoặc tên file trong assets/).
       photo: "assets/gate-b.png",
       // Tọa độ thực của cổng (lat: vĩ độ, lng: kinh độ) lấy từ Google Maps.
@@ -148,10 +148,10 @@ window.INVITE = {
   // --- Lời mời, SMS và lời kết ---
   // Giá trị thay cho {date} trong tin nhắn SMS và hướng dẫn (steps).
   // Cách lấy: ghi ngày/khung giờ bạn muốn nhắc trong tin nhắn (tự do, không bắt buộc trùng dateDisplay).
-  rsvpDate: "05 tháng 12 năm 2026",
+  rsvpDate: "25/11/2026",
   // Mẫu tin nhắn SMS khi bấm "Nhắn tin". Hỗ trợ: {name} -> nickname, {date} -> rsvpDate.
   // Cách lấy: tự viết nội dung; giữ {name}/{date} nếu muốn tự điền.
-  smsMessage: "Chào {name}, mình xác nhận sẽ đến dự lễ tốt nghiệp vào {date}. Hẹn gặp bạn tại buổi lễ.",
+  smsMessage: "Chào {name}, mình xác nhận sẽ đến dự lễ tốt nghiệp vào {date}. Hẹn gặp bạn nhé.",
   // Dòng chữ trên dải giấy phần kết.
   closingLine: "Hẹn gặp bạn tại buổi lễ.",
   // Lời mời ngắn trong thẻ "Lời mời".
@@ -213,7 +213,7 @@ window.INVITE = {
     },
     {
       title: "Vào toà A",
-      note: "."
+      note: "Tầng 3, Hội trường A."
     }
   ]
 };
