@@ -30,7 +30,7 @@ window.INVITE = {
   // Ảnh chân dung (ảnh trái ở phần đầu).
   studentPhoto: "assets/student-portrait.jpg",
   // Ảnh tốt nghiệp (ảnh phải ở phần đầu). Nếu lỗi sẽ dùng studentPhoto.
-  gradPhoto: "assets/graduate-photo.svg",
+  gradPhoto: "https://drive.google.com/drive/u/1/folders/1Oo4uH80q4PU9yxjJH33CykFn5rf4YntH",
   // Ảnh cổng/dự phòng khi ảnh của cổng không tải được.
   entrancePhoto: "assets/placeholder-gate.svg",
 
@@ -146,7 +146,7 @@ window.INVITE = {
   // Dòng chữ trên dải giấy phần kết.
   closingLine: "Hẹn gặp bạn tại buổi lễ.",
   // Lời mời ngắn trong thẻ "Lời mời".
-  message: "Mình mời bạn đến chia vui trong ngày tốt nghiệp. Có bạn ở đó là ngày ấy thêm trọn vẹn.",
+  message: "Mình mời bạn đến chia vui trong ngày tốt nghiệp. Có bạn ở đó là ngày ấy thêm trọn vẹn. Hình như thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
 
   // --- Xe buýt ---
   // Ghi chú chung về xe buýt/bãi đỗ.
