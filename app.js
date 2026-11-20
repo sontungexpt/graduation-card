@@ -6,10 +6,13 @@ const $ = (id) => document.getElementById(id);
 const setText = (id, value) => { $(id).textContent = value; };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-// Ảnh có thể là URL, hoặc file trong assets/ (gõ tên file cũng được)
+// Ảnh có thể là URL, file trong assets/ (gõ tên file cũng được), hoặc link chia sẻ Google Drive
 const imageSrc = (value) => {
   const v = String(value || "").trim();
   if (!v) return "";
+  const drive = v.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)
+    || (/drive\.google\.com/.test(v) && v.match(/[?&]id=([^&#]+)/));
+  if (drive) return `https://drive.google.com/thumbnail?id=${drive[1]}&sz=w2000`;
   return /^(https?:)?\/\/|^data:|^blob:|^\/|^\.\/|^assets\//i.test(v) ? v : `assets/${v}`;
 };
 const setImage = (img, value, fallback = "") => {
@@ -39,11 +42,13 @@ const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColo
 
 function renderPills(id, items) {
   $(id).innerHTML = items.map((item) => {
+    if (item.tour) {
+      const mode = item.tourMode ? ` data-tour-mode="${esc(item.tourMode)}"` : "";
+      const label = item.label ? ` data-tour-label="${esc(item.label)}"` : "";
+      return `<a class="pill" href="${esc(item.href)}" target="_blank" rel="noopener" data-tour="${esc(item.href)}"${mode}${label}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
+    }
     const external = item.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
     const copy = item.copy ? ` data-copy="${esc(item.copy)}"` : "";
-    if (item.tour) {
-      return `<a class="pill" href="${esc(item.href)}" target="_blank" rel="noopener" data-tour="${esc(item.href)}">${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
-    }
     return `<a class="pill" href="${esc(item.href)}"${external}${copy}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
   }).join("");
 }
@@ -82,6 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
     .replace(/\{date\}/g, INVITE.rsvpDate)
     .replace(/\{gate\}/g, gate || INVITE.gates[0].name);
   const isLink = (s) => /^https?:\/\//.test(s);
+  const tours = (INVITE.tours && INVITE.tours.length
+    ? INVITE.tours
+    : (INVITE.tour360Url ? [{ label: INVITE.tourLabel || "Tour 360°", url: INVITE.tour360Url }] : [])
+  ).filter((tour) => tour && tour.url);
 
   // ---------- Đổ nội dung ----------
   document.title = `Thiệp mời tốt nghiệp — ${INVITE.studentName}`;
@@ -133,7 +142,13 @@ document.addEventListener("DOMContentLoaded", () => {
       { label: "Google Maps", icon: "pin", href: `https://www.google.com/maps/dir/?api=1&destination=${coords}&travelmode=transit` },
       { label: "Apple Maps", icon: "compass", href: `https://maps.apple.com/?ll=${coords}&q=${encodeURIComponent(gate.name)}&z=17` },
       { label: "MultiGo", icon: "bus", href: INVITE.multiGoUrl, copy: `${INVITE.venue}, ${gate.name}, ${INVITE.address}` },
-      { label: INVITE.tourLabel, icon: "tour", href: INVITE.tour360Url, tour: true }
+      ...tours.map((tour) => ({
+        label: tour.label || "Tham quan",
+        icon: "tour",
+        href: tour.url,
+        tour: true,
+        tourMode: tour.mode || INVITE.tourMode || "modal"
+      }))
     ]);
 
     $("steps").innerHTML = INVITE.steps.map((step, i) => `
@@ -148,9 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const index = Number(chip.dataset.gate);
     if (chip.classList.contains("is-active")) {
       const gate = INVITE.gates[index];
-      const coords = `${gate.lat},${gate.lng}`;
       window.open(
-        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coords)}`,
+        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gate.lat},${gate.lng}`)}`,
         "_blank",
         "noopener"
       );
@@ -180,26 +194,56 @@ document.addEventListener("DOMContentLoaded", () => {
     if (button) copyText(button.dataset.copy).then(() => toast(INVITE.multiGoCopiedMessage));
   });
 
-  // ---------- Tour 360° ----------
+  // ---------- Tour 360° / mô hình 3D ----------
   const tourModal = $("tourModal");
   const tourOpen = $("tourOpen");
+  const tourTitle = $("tourTitle");
+  const tourPanel = tourModal.querySelector(".tour-modal__panel");
   let lastFocused = null;
-  tourOpen.href = INVITE.tour360Url;
+  const defaultTour = tours[0];
+  if (defaultTour) {
+    tourOpen.href = defaultTour.url;
+    if (tourTitle) tourTitle.textContent = defaultTour.label || "Tham quan";
+  }
 
-  function openTour(url) {
+  function enterLandscapeForTour() {
+    const el = tourPanel || tourModal;
+    const mobile = window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 900px)").matches;
+    if (!mobile) return;
+    const fs = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (fs) Promise.resolve(fs.call(el)).catch(() => {});
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock("landscape").catch(() => {});
+    }
+  }
+  function exitLandscapeForTour() {
+    if (screen.orientation && screen.orientation.unlock) {
+      try { screen.orientation.unlock(); } catch (_) { /* bỏ qua */ }
+    }
+    const doc = document;
+    const exit = doc.exitFullscreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    const fullEl = doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
+    if (exit && fullEl) Promise.resolve(exit.call(doc)).catch(() => {});
+  }
+
+  function openTour(url, label) {
     lastFocused = document.activeElement;
+    const name = label || "Tham quan";
     tourOpen.href = url;
+    if (tourTitle) tourTitle.textContent = name;
+    tourPanel.setAttribute("aria-label", name);
     const mount = $("tourMount");
     // Tạo mới iframe mỗi lần mở để không có phiên chạy cũ bị nhân đôi
     mount.replaceChildren();
     const frame = document.createElement("iframe");
-    frame.title = "Tour 360° khuôn viên Đại học Công nghệ thông tin";
-    frame.allow = "autoplay; fullscreen";
+    frame.title = name;
+    frame.allow = "autoplay; fullscreen; xr-spatial-tracking";
     frame.allowFullscreen = true;
     frame.src = url;
     mount.appendChild(frame);
     tourModal.hidden = false;
     document.body.style.overflow = "hidden";
+    enterLandscapeForTour();
     $("tourClose").focus();
   }
   function closeTour() {
@@ -208,15 +252,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Xóa hẳn iframe để dừng âm thanh và nội dung
     $("tourMount").replaceChildren();
     document.body.style.overflow = "";
+    exitLandscapeForTour();
     if (lastFocused) lastFocused.focus();
   }
-  $("tourClose").addEventListener("click", closeTour);
   document.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-tour]");
-    if (trigger && INVITE.tourMode === "modal") {
-      event.preventDefault();
-      openTour(trigger.dataset.tour || trigger.href);
-      return;
+    if (trigger) {
+      const mode = trigger.dataset.tourMode || INVITE.tourMode || "modal";
+      if (mode === "modal") {
+        event.preventDefault();
+        openTour(trigger.dataset.tour || trigger.href, trigger.dataset.tourLabel);
+        return;
+      }
     }
     if (event.target.closest("[data-close-tour]")) closeTour();
   });
