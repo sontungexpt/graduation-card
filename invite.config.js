@@ -59,7 +59,7 @@ window.INVITE = {
   dateDisplay: "Thứ Tư, ngày 25 tháng 11 năm 2026",
   // Dòng giờ/khung giờ hiển thị (nổi bật, cùng hàng với ngày).
   // Cách lấy: ghi khung giờ bạn muốn khách ghé (vd "Trước 13:30 hoặc sau 16:30").
-  timeDisplay: "Trước 13:30 hoặc sau 16:30",
+  timeDisplay: "11h - 12h hoặc sau 16:30",
   // Ghi chú nhỏ bên dưới phần thời gian.
   // Cách lấy: giải thích thêm để khách hiểu nên đến lúc nào.
   timeNote: "Mình bận lễ từ 13:30 đến 16:30, bạn ghé ngoài khung giờ này để tụi mình có thời gian gặp nhau nhé.",
