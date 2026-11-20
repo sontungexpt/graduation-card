@@ -6,7 +6,7 @@ cd "$ROOT_DIR"
 
 echo "==> Checking JavaScript syntax"
 node --check invite.config.js
-node --check script.js
+node --check app.js
 
 if command -v xmllint >/dev/null 2>&1; then
   echo "==> Checking SVG files"

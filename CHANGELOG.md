@@ -9,3 +9,7 @@ Tất cả thay đổi đáng chú ý của dự án sẽ được ghi lại t�
 - Đồng hồ đếm ngược, chọn cổng (ảnh/ghim/bản đồ/chỉ đường), danh sách xe buýt, liên hệ nhanh, và tour 360°.
 - Hỗ trợ ảnh từ `assets/` hoặc URL ngoài.
 - Tệp dự án: `.gitignore`, giấy phép, tài liệu đóng góp, mẫu issue/PR, và workflow GitHub Pages.
+
+### Thay đổi
+- Dọn dẹp và đặt tên tệp/asset rõ ràng hơn (`app.js`, `style.css`, `assets/student-portrait.jpg`, `assets/gate-b.png`, `assets/graduate-photo.svg`, `assets/placeholder-portrait.svg`, `assets/placeholder-gate.svg`).
+- Cập nhật tài liệu, kiểm tra và quy trình triển khai theo cấu trúc mới.
