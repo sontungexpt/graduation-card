@@ -136,7 +136,7 @@ window.INVITE = {
   messenger: "Tranvosontung",
   // Zalo: số điện thoại (không cần dấu +) hoặc link đầy đủ.
   // Cách lấy: số Zalo của bạn (vd "0392211343" hoặc "84912345678"), hoặc dán link https://zalo.me/<số>.
-  zalo: "84912345678",
+  zalo: "84392211343",
 
   // --- Lời mời, SMS và lời kết ---
   // Giá trị thay cho {date} trong tin nhắn SMS và hướng dẫn (steps).

@@ -183,8 +183,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Tour 360° ----------
   const tourModal = $("tourModal");
   const tourOpen = $("tourOpen");
+  const tourPanel = tourModal.querySelector(".tour-modal__panel");
   let lastFocused = null;
   tourOpen.href = INVITE.tour360Url;
+
+  function enterLandscapeForTour() {
+    const el = tourPanel || tourModal;
+    const mobile = window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 900px)").matches;
+    if (!mobile) return;
+    const fs = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+    if (fs) Promise.resolve(fs.call(el)).catch(() => {});
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock("landscape").catch(() => {});
+    }
+  }
+  function exitLandscapeForTour() {
+    if (screen.orientation && screen.orientation.unlock) {
+      try { screen.orientation.unlock(); } catch (_) { /* bỏ qua */ }
+    }
+    const doc = document;
+    const exit = doc.exitFullscreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    const fullEl = doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
+    if (exit && fullEl) Promise.resolve(exit.call(doc)).catch(() => {});
+  }
 
   function openTour(url) {
     lastFocused = document.activeElement;
@@ -200,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mount.appendChild(frame);
     tourModal.hidden = false;
     document.body.style.overflow = "hidden";
+    enterLandscapeForTour();
     $("tourClose").focus();
   }
   function closeTour() {
@@ -208,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Xóa hẳn iframe để dừng âm thanh và nội dung
     $("tourMount").replaceChildren();
     document.body.style.overflow = "";
+    exitLandscapeForTour();
     if (lastFocused) lastFocused.focus();
   }
   $("tourClose").addEventListener("click", closeTour);
