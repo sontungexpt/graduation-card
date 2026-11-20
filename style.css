@@ -10,9 +10,9 @@
   --sage: #9fbaa4;
   --sage-soft: #e4ede2;
 
-  --serif: "Playfair Display", Georgia, serif;
-  --sans: "Be Vietnam Pro", "Inter", system-ui, sans-serif;
-  --script: "Caveat", "Playfair Display", cursive;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: "Be Vietnam Pro", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --script: "Caveat", "Be Vietnam Pro", "Segoe Print", "Bradley Hand", cursive;
 
   --torn-clip: polygon(1% 2%, 12% 0, 25% 2%, 38% 0, 52% 2%, 66% 0, 80% 2%, 94% 0, 100% 2%, 99% 14%, 100% 30%, 98% 48%, 100% 66%, 98% 84%, 100% 98%, 88% 100%, 74% 98%, 60% 100%, 46% 98%, 32% 100%, 18% 98%, 4% 100%, 0 98%, 2% 84%, 0 66%, 2% 48%, 0 30%, 1% 14%);
 }
