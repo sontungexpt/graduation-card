@@ -107,14 +107,19 @@ window.INVITE = {
   // Gợi ý nhỏ dưới nhóm nút bản đồ.
   mapHint: "Chạm để mở bản đồ trên điện thoại.",
 
-  // --- Tour 360° ---
-  // Đường link tour tham quan 360° khuôn viên.
-  // Cách lấy: dán URL trang tour (vd tour của trường). Nếu không dùng, có thể để "" (chuỗi rỗng).
-  tour360Url: "https://tuyensinh.uit.edu.vn/uit-tour-360/",
-  // Nhãn hiển thị trên nút tour.
-  tourLabel: "Tour 360°",
-  // Cách mở tour: "modal" = nhúng ngay trên thiệp; "tab" = mở tab mới.
-  // Lưu ý: tour nhúng có thể tự phát âm thanh của chính tour.
+  // --- Tham quan 360° / mô hình 3D ---
+  // Danh sách tour/mô hình để xem khuôn viên (hiển thị thành nút trong mục "Mở bản đồ").
+  // Mỗi mục gồm:
+  // - label: tên nút/tiêu đề hiển thị (vd "Tour 360°", "Mô hình 3D UIT").
+  // - url: đường link tour/mô hình. Cách lấy: dán URL trang (để "" nếu không dùng).
+  // - mode (tùy chọn): "modal" = nhúng ngay trên thiệp, "tab" = mở tab mới. Bỏ trống sẽ dùng tourMode mặc định.
+  // Lưu ý: nội dung nhúng (modal) có thể tự phát âm thanh. Một số trang chặn nhúng (X-Frame-Options/CSP),
+  //        nếu gặp lỗi không hiển thị trong khung thì đặt mode: "tab" để mở trong cửa sổ/tab mới.
+  tours: [
+    { label: "Tour 360°", url: "https://tuyensinh.uit.edu.vn/uit-tour-360/" },
+    { label: "Mô hình 3D UIT", url: "https://cs.uitmap.site/", mode: "tab" },
+  ],
+  // Cách mở mặc định cho các mục ở trên: "modal" hoặc "tab".
   tourMode: "modal",
 
   // --- MultiGo (dự phòng khi cần app gọi xe/chỉ đường riêng) ---

@@ -24,7 +24,7 @@ Mỗi phần tử trong `gates` có:
 - `lat`, `lng`: tọa độ thực để mở Google/Apple Maps
 
 ## Tour 360°
-- `tour360Url`, `tourLabel`, `tourMode` (`"modal"` nhúng trên trang, `"tab"` mở tab mới)
+- `tours` (danh sách `{ label, url, mode? }` cho tour 360°/mô hình 3D), `tourMode` (mặc định `"modal"` nhúng trên trang, `"tab"` mở tab mới). Nếu trang chặn nhúng (X-Frame-Options/CSP), đặt `mode: "tab"` cho mục đó.
 
 ## Lời mời và xe buýt
 - `message`, `closingLine`, `smsMessage`, `rsvpDate`

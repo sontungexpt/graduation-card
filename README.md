@@ -40,7 +40,7 @@ Mở `invite.config.js` và sửa object `window.INVITE`:
 - **Liên hệ:** `phoneDisplay`, `phoneDial`, `messenger`, `zalo`
 - **Cổng vào:** mảng `gates` với `name`, `note`, `photo` (URL ảnh cổng), `lat`, `lng`. Chỉ cần dán link ảnh, không cần đưa file vào `assets/`. Nếu link lỗi, thiệp dùng ảnh dự phòng `entrancePhoto`.
 - **Chỉ đường:** `locationTitle`, `locationHint`, `mapHint`, `steps`
-- **Tour 360°:** `tour360Url`, `tourLabel`, `tourMode` — dán URL tour vào đây. `tourMode: "modal"` nhúng tour ngay trên thiệp; `"tab"` mở tab mới. Tour tự phát nhạc có sẵn, không thêm nhạc riêng để tránh nhân đôi tiếng
+- **Tham quan 360° / mô hình 3D:** `tours` (mỗi mục có `label`, `url`, tùy chọn `mode`) và `tourMode` mặc định — dán URL vào đây. `tourMode: "modal"` nhúng ngay trên thiệp; `"tab"` mở tab mới. Nội dung nhúng có thể tự phát âm thanh, không thêm nhạc riêng để tránh nhân đôi tiếng
 - **Xe buýt:** `busNote`, `busFootnote`, `buses`
 - **Lời mời:** `message`, `closingLine`, `smsMessage`, `rsvpDate`
 

@@ -42,7 +42,9 @@ function renderPills(id, items) {
     const external = item.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
     const copy = item.copy ? ` data-copy="${esc(item.copy)}"` : "";
     if (item.tour) {
-      return `<a class="pill" href="${esc(item.href)}" target="_blank" rel="noopener" data-tour="${esc(item.href)}">${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
+      const mode = item.tourMode ? ` data-tour-mode="${esc(item.tourMode)}"` : "";
+      const label = item.label ? ` data-tour-label="${esc(item.label)}"` : "";
+      return `<a class="pill" href="${esc(item.href)}" target="_blank" rel="noopener" data-tour="${esc(item.href)}"${mode}${label}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
     }
     return `<a class="pill" href="${esc(item.href)}"${external}${copy}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
   }).join("");
@@ -82,6 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     .replace(/\{date\}/g, INVITE.rsvpDate)
     .replace(/\{gate\}/g, gate || INVITE.gates[0].name);
   const isLink = (s) => /^https?:\/\//.test(s);
+  const tours = (INVITE.tours && INVITE.tours.length
+    ? INVITE.tours
+    : (INVITE.tour360Url ? [{ label: INVITE.tourLabel || "Tour 360°", url: INVITE.tour360Url }] : [])
+  ).filter((tour) => tour && tour.url);
 
   // ---------- Đổ nội dung ----------
   document.title = `Thiệp mời tốt nghiệp — ${INVITE.studentName}`;
@@ -133,7 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
       { label: "Google Maps", icon: "pin", href: `https://www.google.com/maps/dir/?api=1&destination=${coords}&travelmode=transit` },
       { label: "Apple Maps", icon: "compass", href: `https://maps.apple.com/?ll=${coords}&q=${encodeURIComponent(gate.name)}&z=17` },
       { label: "MultiGo", icon: "bus", href: INVITE.multiGoUrl, copy: `${INVITE.venue}, ${gate.name}, ${INVITE.address}` },
-      { label: INVITE.tourLabel, icon: "tour", href: INVITE.tour360Url, tour: true }
+      ...tours.map((tour) => ({
+        label: tour.label || "Tham quan",
+        icon: "tour",
+        href: tour.url,
+        tour: true,
+        tourMode: tour.mode || INVITE.tourMode || "modal"
+      }))
     ]);
 
     $("steps").innerHTML = INVITE.steps.map((step, i) => `
@@ -180,12 +192,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (button) copyText(button.dataset.copy).then(() => toast(INVITE.multiGoCopiedMessage));
   });
 
-  // ---------- Tour 360° ----------
+  // ---------- Tour 360° / mô hình 3D ----------
   const tourModal = $("tourModal");
   const tourOpen = $("tourOpen");
+  const tourTitle = $("tourTitle");
   const tourPanel = tourModal.querySelector(".tour-modal__panel");
   let lastFocused = null;
-  tourOpen.href = INVITE.tour360Url;
+  const defaultTour = tours[0];
+  if (defaultTour) {
+    tourOpen.href = defaultTour.url;
+    if (tourTitle) tourTitle.textContent = defaultTour.label || "Tham quan";
+  }
 
   function enterLandscapeForTour() {
     const el = tourPanel || tourModal;
@@ -207,15 +224,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (exit && fullEl) Promise.resolve(exit.call(doc)).catch(() => {});
   }
 
-  function openTour(url) {
+  function openTour(url, label) {
     lastFocused = document.activeElement;
     tourOpen.href = url;
+    const name = label || "Tham quan";
+    if (tourTitle) tourTitle.textContent = name;
     const mount = $("tourMount");
     // Tạo mới iframe mỗi lần mở để không có phiên chạy cũ bị nhân đôi
     mount.replaceChildren();
     const frame = document.createElement("iframe");
-    frame.title = "Tour 360° khuôn viên Đại học Công nghệ thông tin";
-    frame.allow = "autoplay; fullscreen";
+    frame.title = name;
+    frame.allow = "autoplay; fullscreen; xr-spatial-tracking";
     frame.allowFullscreen = true;
     frame.src = url;
     mount.appendChild(frame);
@@ -236,10 +255,13 @@ document.addEventListener("DOMContentLoaded", () => {
   $("tourClose").addEventListener("click", closeTour);
   document.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-tour]");
-    if (trigger && INVITE.tourMode === "modal") {
-      event.preventDefault();
-      openTour(trigger.dataset.tour || trigger.href);
-      return;
+    if (trigger) {
+      const mode = trigger.dataset.tourMode || INVITE.tourMode || "modal";
+      if (mode === "modal") {
+        event.preventDefault();
+        openTour(trigger.dataset.tour || trigger.href, trigger.dataset.tourLabel);
+        return;
+      }
     }
     if (event.target.closest("[data-close-tour]")) closeTour();
   });
