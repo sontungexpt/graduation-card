@@ -23,10 +23,12 @@ window.INVITE = {
   photoJoke: "Thiếu thiếu cái gì ấy nhỉ? À, thiếu tấm bằng.",
 
   // --- Ảnh ---
-  // Mỗi trường ảnh nhận: URL ảnh (https://...), hoặc file trong thư mục assets/
+  // Mỗi trường ảnh nhận: URL ảnh (https://...), file trong thư mục assets/, hoặc link chia sẻ Google Drive.
   //   - "assets/ten-anh.jpg" hoặc chỉ "ten-anh.jpg" (tự hiểu là assets/ten-anh.jpg)
+  //   - Google Drive: đặt quyền chia sẻ "Bất kỳ ai có đường liên kết" (Người xem), rồi dán link chia sẻ
+  //     (vd https://drive.google.com/file/d/<ID>/view...) — thiệp sẽ tự chuyển thành link ảnh hiển thị được.
   // Cách lấy file local: chép ảnh vào thư mục assets/ rồi ghi tên file.
-  // Cách lấy URL: tải ảnh lên (Drive/Imgur/...) lấy link trực tiếp, hoặc chuột phải ảnh trên web > Sao chép địa chỉ hình ảnh.
+  // Cách lấy URL: tải ảnh lên (Imgur, Drive, ...) lấy link, hoặc chuột phải ảnh trên web > Sao chép địa chỉ hình ảnh.
   // Nếu ảnh lỗi/không tải được, thiệp dùng ảnh dự phòng (entrancePhoto cho ảnh cổng, studentPhoto cho ảnh tốt nghiệp).
 
   // Ảnh chân dung (ảnh trái ở phần đầu).

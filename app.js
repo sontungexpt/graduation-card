@@ -6,10 +6,13 @@ const $ = (id) => document.getElementById(id);
 const setText = (id, value) => { $(id).textContent = value; };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-// Ảnh có thể là URL, hoặc file trong assets/ (gõ tên file cũng được)
+// Ảnh có thể là URL, file trong assets/ (gõ tên file cũng được), hoặc link chia sẻ Google Drive
 const imageSrc = (value) => {
   const v = String(value || "").trim();
   if (!v) return "";
+  const drive = v.match(/drive\.google\.com\/file\/d\/([^/?#]+)/)
+    || (/drive\.google\.com/.test(v) && v.match(/[?&]id=([^&#]+)/));
+  if (drive) return `https://drive.google.com/thumbnail?id=${drive[1]}&sz=w2000`;
   return /^(https?:)?\/\/|^data:|^blob:|^\/|^\.\/|^assets\//i.test(v) ? v : `assets/${v}`;
 };
 const setImage = (img, value, fallback = "") => {
@@ -39,13 +42,13 @@ const icon = (name) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColo
 
 function renderPills(id, items) {
   $(id).innerHTML = items.map((item) => {
-    const external = item.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
-    const copy = item.copy ? ` data-copy="${esc(item.copy)}"` : "";
     if (item.tour) {
       const mode = item.tourMode ? ` data-tour-mode="${esc(item.tourMode)}"` : "";
       const label = item.label ? ` data-tour-label="${esc(item.label)}"` : "";
       return `<a class="pill" href="${esc(item.href)}" target="_blank" rel="noopener" data-tour="${esc(item.href)}"${mode}${label}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
     }
+    const external = item.href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+    const copy = item.copy ? ` data-copy="${esc(item.copy)}"` : "";
     return `<a class="pill" href="${esc(item.href)}"${external}${copy}>${icon(item.icon)}<span>${esc(item.label)}</span></a>`;
   }).join("");
 }
@@ -160,9 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const index = Number(chip.dataset.gate);
     if (chip.classList.contains("is-active")) {
       const gate = INVITE.gates[index];
-      const coords = `${gate.lat},${gate.lng}`;
       window.open(
-        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(coords)}`,
+        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${gate.lat},${gate.lng}`)}`,
         "_blank",
         "noopener"
       );
@@ -226,9 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openTour(url, label) {
     lastFocused = document.activeElement;
-    tourOpen.href = url;
     const name = label || "Tham quan";
+    tourOpen.href = url;
     if (tourTitle) tourTitle.textContent = name;
+    tourPanel.setAttribute("aria-label", name);
     const mount = $("tourMount");
     // Tạo mới iframe mỗi lần mở để không có phiên chạy cũ bị nhân đôi
     mount.replaceChildren();
@@ -252,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
     exitLandscapeForTour();
     if (lastFocused) lastFocused.focus();
   }
-  $("tourClose").addEventListener("click", closeTour);
   document.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-tour]");
     if (trigger) {
